@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('jj2000-5.2-20110311.215956-1.jar'))

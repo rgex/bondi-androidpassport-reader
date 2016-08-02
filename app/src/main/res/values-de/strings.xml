@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">Bondi NFC Reisepass Leser</string>
+    <string name="title_activity_result_display">Daten</string>
+    <string name="title_activity_waiting_for_nfc">Warten auf NFC-Tag</string>
+    <string name="title_activity_reading_passport">Auslesen</string>
+
+    <string name="passport_info_alert_text">Der NFC-Chip des Reisepasses ist durch ein Passwort geschützt, Sie müssen deswegen folgende Informationen zur Verfügung stellen</string>
+
+    <string name="passport_number_text">Pass-Nr.</string>
+    <string name="date_of_birth_text">Geburtstag</string>
+    <string name="date_of_expiry_text">Gültig bis</string>
+
+    <string name="next_button_text">Weiter</string>
+
+    <string name="waiting_for_nfc_text">Bitte legen Sie das Gerät auf die innere Abdeckung des Passes</string>
+    <string name="found_nfc_text">NFC Tag gefunden!</string>
+
+    <string name="reading_passport_progress">Reisepass Inhalt wird ausgelesen</string>
+
+    <string name="information_tab_text">Informationen</string>
+    <string name="image_tab_text">Bild</string>
+    <string name="security_tab_text">Sicherheit</string>
+
+    <string name="information_document_type">Dokumenttyp</string>
+    <string name="information_issued_by">Ausgestellt durch</string>
+    <string name="information_document_number">Pass-Nr.</string>
+    <string name="information_date_of_expiry">Gültig bis</string>
+    <string name="information_gender">Geschlecht</string>
+    <string name="information_gender_male">M</string>
+    <string name="information_gender_female">F</string>
+    <string name="information_nationality">Staatsangehörigkeit</string>
+    <string name="information_surname">Name</string>
+    <string name="information_given_names">Vorname</string>
+    <string name="information_date_of_birth">Geburtstag</string>
+
+    <string name="information_issuer_country">Land</string>
+    <string name="information_certification_authority">Zertifizierungsstelle</string>
+    <string name="information_issuer_organization">Zertifizierungsorganisation</string>
+    <string name="information_issuer_organizational_unit">Zertifizierungsorganisation Einheit</string>
+    <string name="information_signature_algorithm">Signaturalgorithmus</string>
+    <string name="information_lds_hash_algorithm">LDS hash Algorithmus</string>
+    <string name="information_valid_from">Zertifikat gültig ab</string>
+    <string name="information_valid_until">Zertifikat gültig bis</string>
+
+    <string name="error_dg1_is_null">Application error \'DG1\', please try again. If the problem persists report it us at panda@panda.cat</string>
+    <string name="error_dg2_is_null">Application error \'DG2\', please try again. If the problem persists report it us at panda@panda.cat</string>
+    <string name="error_mutual_authentication_failed">Authentication failed, please check the passport No. / date of birth / date of expiry. If the problem persists write us at panda@panda.cat</string>
+    <string name="error_lost_connexion">Die Verbindung zum NFC-Chip wurde Verlorene , bitte versuchen Sie es erneut</string>
+    <string name="error_nfc_exception">An error occurred, please try again. If the problem persists write us at panda@panda.cat</string>
+    <string name="error_error">Fehler</string>
+    <string name="error_nfc_is_disabled">Sie müssen nfc aktivieren, damit Sie diese App benutzen können</string>
+
+</resources>
