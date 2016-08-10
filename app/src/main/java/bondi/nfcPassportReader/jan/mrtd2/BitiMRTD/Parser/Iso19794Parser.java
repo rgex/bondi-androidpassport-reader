@@ -40,7 +40,14 @@ public class Iso19794Parser {
          */
         cursor += 4; //skip Facial Record Data Length
 
-        int numberOfFeaturePoints = this.tools.getLengthFromAsn1(Arrays.copyOfRange(this.rawData, cursor, cursor + 2)); //@ TODO write 16 bits number converter
+        // @TODO remove
+        System.out.println("Facial record header:");
+        System.out.println(this.tools.bytesToString(Arrays.copyOfRange(this.rawData, 0, 1024)));
+        // end todo remove
+
+        int numberOfFeaturePoints = this.tools.getIntFrom16bits(Arrays.copyOfRange(this.rawData, cursor, cursor + 2));
+
+        System.out.println("Number of feature points: ".concat(String.valueOf(numberOfFeaturePoints)));
         cursor += 2;
 
         cursor += 1; //skip Gender
