@@ -156,6 +156,11 @@ public class Tools {
         return 0;
     }
 
+    public int getIntFrom16bits(byte[] input)
+    {
+        return ((input[0] << 8) & 0x0000ff00) | (input[1] & 0x000000ff);
+    }
+
     public int getLengthFromAsn1(byte[] asn1)
     {
 

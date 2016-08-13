@@ -2,6 +2,7 @@ package bondi.nfcPassportReader.jan.mrtd2.BitiMRTD.Parser;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import bondi.nfcPassportReader.jan.mrtd2.BitiMRTD.Tools.Tools;
 import org.jmrtd.jj2000.JJ2000Decoder;
@@ -22,8 +23,7 @@ public class Iso19794Parser {
         this.parse();
     }
 
-    private void parse()
-    {
+    private void parse() {
         int cursor = 0;
 
         /**
@@ -40,7 +40,9 @@ public class Iso19794Parser {
          */
         cursor += 4; //skip Facial Record Data Length
 
-        int numberOfFeaturePoints = this.tools.getLengthFromAsn1(Arrays.copyOfRange(this.rawData, cursor, cursor + 2)); //@ TODO write 16 bits number converter
+        int numberOfFeaturePoints = this.tools.getIntFrom16bits(Arrays.copyOfRange(this.rawData, cursor, cursor + 2));
+
+        System.out.println("Number of feature points: ".concat(String.valueOf(numberOfFeaturePoints)));
         cursor += 2;
 
         cursor += 1; //skip Gender
@@ -54,7 +56,7 @@ public class Iso19794Parser {
         /**
          * Feature point(s)
          */
-        for(int i = 0; i < numberOfFeaturePoints; i++) {
+        for (int i = 0; i < numberOfFeaturePoints; i++) {
             cursor += 8; //skip Feature Point
         }
 
@@ -70,22 +72,30 @@ public class Iso19794Parser {
         cursor += 2; //skip Device Type
         cursor += 2; //skip Quality
 
+        byte[] imageBytes = Arrays.copyOfRange(this.rawData, cursor, this.rawData.length);
+
         /**
          * Image Data
          */
         try {
             //first try with jpg
-            this.bitmap = BitmapFactory.decodeByteArray(this.rawData, cursor, this.rawData.length);
-        }
-        catch(Exception e) {
-            // Second try with jp2000
-            System.out.println(e.getLocalizedMessage());
+            this.bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        } catch (Exception e) {
 
+            // Second try with jp2000
+            if (e.getLocalizedMessage() != null) {
+                System.out.println(e.getLocalizedMessage());
+            }
+            System.out.println(Log.getStackTraceString(e));
+        }
+
+        //try again with jp2000 if failed
+        if (this.bitmap == null) {
             try {
 
                 org.jmrtd.jj2000.Bitmap jj2000image = JJ2000Decoder.decode(
                         new ByteArrayInputStream(
-                                Arrays.copyOfRange(this.rawData, cursor, this.rawData.length)
+                                imageBytes
                         )
                 );
 
@@ -101,9 +111,12 @@ public class Iso19794Parser {
                 );
 
             } catch (Exception e2) {
-                System.out.println(e2.getLocalizedMessage());
+                if (e2.getLocalizedMessage() != null) {
+                    System.out.println(e2.getLocalizedMessage());
+                }
             }
         }
+
     }
 
     public Bitmap getBitmap()
