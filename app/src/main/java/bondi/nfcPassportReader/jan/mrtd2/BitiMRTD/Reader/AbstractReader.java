@@ -28,11 +28,8 @@ public abstract class AbstractReader
     protected Crypto crypto;
     protected Doc9303Apdu doc9303Apdu;
     protected BacInfo bacInfo = null;
-
     protected WeakReference<Object> progressListener;
-
     protected int readingAttempsFails = 0;
-
     protected int maxBlockSize = 215;
     protected byte mutualAuthLe = (byte)0x28;
 
@@ -189,7 +186,6 @@ public abstract class AbstractReader
             }
 
             byte[] payload = Arrays.copyOfRange(result, 0, 32);
-
             byte[] decryptedPayload = this.decrypt(encryptionKey, payload);
 
             System.out.println("Decrypted payload: ".concat(this.tools.bytesToString(decryptedPayload)));
@@ -238,7 +234,6 @@ public abstract class AbstractReader
         System.out.println("paddedQuery : ".concat(this.tools.bytesToString(paddedQuery)));
 
         byte[] encryptedQuery = this.encrypt(this.sessionEncKey, paddedQuery);
-
         byte[] do87 = this.doc9303Apdu.buildDO87(encryptedQuery);
 
         System.out.println("do87 : ".concat(this.tools.bytesToString(do87)));
@@ -256,9 +251,7 @@ public abstract class AbstractReader
 
 
         byte[] cc = this.calculateMac(this.sessionMacKey, n, false);
-
         byte[] do8e = this.doc9303Apdu.buildDO8E(cc);
-
         byte[] protectedApdu = this.apdu.buildApduCommand(
                 (byte) 0x0C,
                 (byte) 0xA4,
@@ -334,9 +327,7 @@ public abstract class AbstractReader
         n = this.padData(n);
 
         byte[] cc = this.calculateMac(this.sessionMacKey, n, false);
-
         byte[] do8e = this.doc9303Apdu.buildDO8E(cc);
-
         byte[] protectedApdu = this.apdu.buildApduCommand(
                 (byte) 0x0C,
                 (byte) 0xB0,
@@ -407,7 +398,6 @@ public abstract class AbstractReader
 
         byte[] fileContent = {};
 
-
         if(fileLength < 128) {
             fileLength += 2;
         }
@@ -474,13 +464,11 @@ public abstract class AbstractReader
         // @TODO this code is similar to the one in STEP 2 and should be placed in a same method
 
         byte[] bytesCursor =  this.tools.calculate2bytesInt(cursor);
-
         byte[] cmdHeader = {(byte)0x0C, (byte)0xB0, bytesCursor[0], bytesCursor[1]};
 
         cmdHeader = this.padData(cmdHeader);
 
         byte[] do97 = this.doc9303Apdu.buildDO97(le);
-
         byte[] m = this.tools.concatByteArrays(cmdHeader, do97);
 
         this.incrementSequenceCounter();
@@ -489,9 +477,7 @@ public abstract class AbstractReader
         n = this.padData(n);
 
         byte[] cc = this.calculateMac(this.sessionMacKey, n, false);
-
         byte[] do8e = this.doc9303Apdu.buildDO8E(cc);
-
         byte[] protectedApdu = this.apdu.buildApduCommand(
                 (byte) 0x0C,
                 (byte) 0xB0,
@@ -532,9 +518,7 @@ public abstract class AbstractReader
             }
 
             byte[] encryptedPayload = Arrays.copyOfRange(rapdu, startToReadFrom, startToReadFrom - 1 + responseLength);
-
             byte[] decryptedPayload = this.decrypt(this.sessionEncKey, encryptedPayload);
-
             byte[] unpadedResult = this.tools.unpadData(decryptedPayload);
 
             return unpadedResult;
