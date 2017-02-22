@@ -31,7 +31,6 @@ public class Doc9303Apdu
         return this.AID;
     }
 
-
     public byte[] buildDO87(byte[] data)
     {
         data = this.tools.concatByteArrays(this.tools.byteToBytes((byte)0x01), data);
@@ -48,7 +47,6 @@ public class Doc9303Apdu
         byte[] header = {(byte) 0x97, (byte) 0x01};
         return this.tools.concatByteArrays(header, this.tools.byteToBytes((byte) length));
     }
-
 
     public byte[] buildDO8E(byte[] data)
     {
